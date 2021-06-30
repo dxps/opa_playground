@@ -12,8 +12,8 @@ default allow = false
 
 allow {
 	# Anyone can read cars.
-	input.path == ["cars"]
 	input.method == "GET"
+	input.path == ["cars"]
 }
 
 allow {
@@ -44,10 +44,6 @@ allow {
 	input.method == "GET"
 	input.path = ["cars", carid, "status"]
 }
-
-# count(input.path) == 3
-# input.path[0] == "cars"
-# input.path[2] == "status"
 
 # Helpers
 

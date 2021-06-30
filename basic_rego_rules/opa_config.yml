@@ -1,0 +1,12 @@
+services:
+  - name: localhttp
+    url: http://localhost:8081
+
+bundles:
+  authz:
+    service: localhttp
+    resource: test_basic_rego_rules___bundle.tar.gz
+    persist: true
+    polling:
+      min_delay_seconds: 10
+      max_delay_seconds: 20
