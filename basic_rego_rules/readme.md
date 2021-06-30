@@ -6,6 +6,8 @@ Note that `input.json` file is needed if you want to use `OPA: Evaluate Package`
 
 This setup is based on _CarInfoStore_ sample, part of Styra's OPA Policy Authoring course.
 
+<br/>
+
 ### Usage
 
 #### Using VSCode
@@ -64,3 +66,11 @@ Steps:
 
 1. Run `./run_http.sh` to start the local HTTP server that serves the bundle.
 1. Run `./run_opa.sh` to start OPA.
+
+Then using OPA's REST API, you can query for some authz decisions using something like:
+
+```shell
+❯ curl localhost:8181/v1/data/rules/allow -d '{"input": {"method": "POST", "path": ["cars"], "user": "dave"}}'
+{"result":true}
+❯
+```
