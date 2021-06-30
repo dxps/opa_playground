@@ -1,4 +1,4 @@
-## Basic Rego Rules
+# Basic Rego Rules
 
 This illustrates the basic capabilities of creating and testing Rego rules.
 
@@ -8,11 +8,11 @@ This setup is based on _CarInfoStore_ sample, part of Styra's OPA Policy Authori
 
 <br/>
 
-### Usage
+## Usage
 
-#### Using VSCode
+### Using VSCode
 
-Using VSCode, having [OPA extension](https://marketplace.visualstudio.com/items?itemName=tsandall.opa) installed, you can just open either the policy file (`basic_rego_rules___policy.rego`) or test file (`test_basic_rego_rules___policy.rego`) and run the VSCode command _OPA: Evaluate package_.
+Using VSCode with [OPA extension](https://marketplace.visualstudio.com/items?itemName=tsandall.opa) installed, you can just open either the policy file (`basic_rego_rules___policy.rego`) or test file (`test_basic_rego_rules___policy.rego`) and run the VSCode command _OPA: Evaluate package_.
 
 The result should look as follows:
 
@@ -56,7 +56,7 @@ The result should look as follows:
 ]
 ```
 
-#### Using local OPA
+### Using local OPA
 
 As OPA can load policies (and data) as bundles (see details [here](https://www.openpolicyagent.org/docs/latest/management-bundles/)), the current policy has been packaged as a gzipped tarbal and it can be exposed through HTTP, and instruct OPA to fetch it at startup.
 
@@ -67,10 +67,17 @@ Steps:
 1. Run `./run_http.sh` to start the local HTTP server that serves the bundle.
 1. Run `./run_opa.sh` to start OPA.
 
-Then using OPA's REST API, you can query for some authz decisions using something like:
+Then using OPA's REST API, you can query for some authz decisions using request like the followings:
 
-```shell
-❯ curl localhost:8181/v1/data/rules/allow -d '{"input": {"method": "POST", "path": ["cars"], "user": "dave"}}'
-{"result":true}
-❯
-```
+- Ask if `dave` (who has _ceo_ title, therefore is a manager) can create new cars:
+  ```shell
+  ❯ curl localhost:8181/v1/data/rules/allow -d '{"input": {"method": "POST", "path": ["cars"], "user": "dave"}}'
+  {"result":true}
+  ❯
+  ```
+- Ask if `alice` (who has `salesperson` title, therefore is an employee, but not a manager) can create new cars:
+  ```shell
+  ❯ curl localhost:8181/v1/data/rules/allow -d '{"input": {"method": "POST", "path": ["cars"], "user": "alice"}}'
+  {"result":false}
+  ❯
+  ```
