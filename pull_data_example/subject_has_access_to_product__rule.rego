@@ -42,7 +42,7 @@ token = {"payload": payload} {
 subject_attrs = resp.body {
 	subjectID := token.payload.sub
 	trace(sprintf("subjectID=%v", [subjectID]))
-	url := sprintf("http://localhost:3001/v1/subjects/%s/attributes", subjectID)
+	url := sprintf("http://localhost:3001/v1/subjects/%s/attributes", [subjectID])
 	resp := http.send({
 		"url": url,
 		"method": "GET",
