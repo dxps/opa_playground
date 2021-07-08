@@ -15,3 +15,10 @@ Use the included scripts to start OPA, upload the policy and query for the decis
 While evaluating the referred policy during the query processing, it should pull additional required data from an external endpoint, provided by the included `iam_svc` service.
 
 <br/>
+
+### Troubleshooting
+
+For checking any wrong call usage (like not specifying the 2nd argument as array (`[]`) to `sprintf`), you can use `opa eval` approach like this:
+`opa eval --format=pretty --explain=full -d subject_has_access_to_product__rule.rego --input input.json data.products_access.dashboard --strict-builtin-errors`
+
+<br/>
