@@ -19,7 +19,7 @@ subject_has_access_to_product {
 subject_has_SelfServiceSupportRole {
 	subjectID := token.payload.sub
 	trace(sprintf("subjectID=%v", [subjectID]))
-	url := sprintf("http://localhost:3001/v1/subjects/%s/attributes", subjectID)
+	url := sprintf("http://localhost:3001/v1/subjects/%s/attributes", [subjectID])
 	subjectAttrs := http.send({
 		"url": url,
 		"method": "GET",
@@ -39,14 +39,14 @@ token = {"payload": payload} {
 	[header, payload, signature] := io.jwt.decode(input.subjectToken)
 }
 
-subject_attrs {
+subject_attrs = resp.body {
 	subjectID := token.payload.sub
 	trace(sprintf("subjectID=%v", [subjectID]))
 	url := sprintf("http://localhost:3001/v1/subjects/%s/attributes", subjectID)
-	http.send({
+	resp := http.send({
 		"url": url,
 		"method": "GET",
 		"headers": {"Authorization": sprintf("Bearer %s", [input.subjectToken])},
 		"raise_error": false,
-	}).body
+	})
 }
